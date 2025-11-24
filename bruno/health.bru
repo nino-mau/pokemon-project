@@ -1,0 +1,33 @@
+meta {
+  name: Get Health Status
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/health
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.status: eq ok
+}
+
+tests {
+  test("Health check returns status ok", function() {
+    const data = res.getBody();
+    expect(data.status).to.equal("ok");
+  });
+  
+  test("Response contains timestamp", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("timestamp");
+  });
+  
+  test("Response contains uptime", function() {
+    const data = res.getBody();
+    expect(data).to.have.property("uptime");
+  });
+}

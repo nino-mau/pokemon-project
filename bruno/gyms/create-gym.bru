@@ -1,0 +1,39 @@
+meta {
+  name: Create Gym
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/gyms
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Test Gym",
+    "location": "Test City",
+    "type": "{{typeId}}",
+    "trainers": []
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Creates new gym successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data).to.have.property("_id");
+    expect(data.name).to.equal("Test Gym");
+  });
+  
+  test("Returns created gym with ID", function() {
+    const data = res.getBody();
+    expect(data._id).to.be.a("string");
+    bru.setVar("gymId", data._id);
+  });
+}

@@ -1,0 +1,39 @@
+meta {
+  name: Create Attack
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/attacks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Test Attack",
+    "power": 80,
+    "accuracy": 95,
+    "type": "691b3ae822a86070aa3c2e04"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Creates new attack successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data).to.have.property("_id");
+    expect(data.name).to.equal("Test Attack");
+  });
+  
+  test("Returns created attack with ID", function() {
+    const data = res.getBody();
+    expect(data._id).to.be.a("string");
+    bru.setVar("attackId", data._id);
+  });
+}

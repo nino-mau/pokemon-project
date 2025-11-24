@@ -1,0 +1,22 @@
+meta {
+  name: Get All Pokemon
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/api/pokemon
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Returns array of pokemon", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("array");
+  });
+}

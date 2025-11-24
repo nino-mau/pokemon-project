@@ -1,0 +1,30 @@
+meta {
+  name: Update Type
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/types/{{typeId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Updated Type",
+    "strengths": ["Water", "Ice"]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Updates type successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data.name).to.equal("Updated Type");
+  });
+}

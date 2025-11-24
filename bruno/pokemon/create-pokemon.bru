@@ -1,0 +1,46 @@
+meta {
+  name: Create Pokemon
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/pokemon
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Test Pokemon",
+    "hp": 100,
+    "attack": "691b3ae822a86070aa3c2e14",
+    "defense": 50,
+    "speed": 60,
+    "weight": 5,
+    "size": 5,
+    "description": "test",
+    "category": "test",
+    "sex": "female",
+    "type": "691b3ae822a86070aa3c2e06"
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Creates new pokemon successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data).to.have.property("_id");
+    expect(data.name).to.equal("Test Pokemon");
+  });
+  
+  test("Returns created pokemon with ID", function() {
+    const data = res.getBody();
+    expect(data._id).to.be.a("string");
+    bru.setVar("pokemonId", data._id);
+  });
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Delete Pokemon
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/api/pokemon/{{pokemonId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Deletes pokemon successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data.message).to.equal("Pokemon deleted successfully");
+  });
+}

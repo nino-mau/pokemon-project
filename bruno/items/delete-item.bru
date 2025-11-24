@@ -1,0 +1,23 @@
+meta {
+  name: Delete Item
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/api/items/{{itemId}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Deletes item successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data.message).to.equal("Item deleted successfully");
+  });
+}

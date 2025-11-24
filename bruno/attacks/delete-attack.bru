@@ -1,0 +1,23 @@
+meta {
+  name: Delete Attack
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/api/attacks/691b3ae822a86070aa3c2e1c
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Deletes attack successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data.message).to.equal("Attack deleted successfully");
+  });
+}

@@ -1,0 +1,31 @@
+meta {
+  name: Update Trainer
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/trainers/{{trainerId}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Updated Trainer",
+    "age": 30
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+tests {
+  test("Updates trainer successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data.name).to.equal("Updated Trainer");
+    expect(data.age).to.equal(30);
+  });
+}

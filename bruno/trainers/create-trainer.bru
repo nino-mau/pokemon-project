@@ -1,0 +1,40 @@
+meta {
+  name: Create Trainer
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/trainers
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Test Trainer",
+    "age": 25,
+    "activePokemons": [],
+    "capturedPokemons": [],
+    "items": []
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Creates new trainer successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data).to.have.property("_id");
+    expect(data.name).to.equal("Test Trainer");
+  });
+  
+  test("Returns created trainer with ID", function() {
+    const data = res.getBody();
+    expect(data._id).to.be.a("string");
+    bru.setVar("trainerId", data._id);
+  });
+}

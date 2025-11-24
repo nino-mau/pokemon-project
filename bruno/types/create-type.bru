@@ -1,0 +1,38 @@
+meta {
+  name: Create Type
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/types
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Test Type",
+    "strengths": ["Water"],
+    "weaknesses": ["Ground"]
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+tests {
+  test("Creates new type successfully", function() {
+    const data = res.getBody();
+    expect(data).to.be.an("object");
+    expect(data).to.have.property("_id");
+    expect(data.name).to.equal("Test Type");
+  });
+  
+  test("Returns created type with ID", function() {
+    const data = res.getBody();
+    expect(data._id).to.be.a("string");
+    bru.setVar("typeId", data._id);
+  });
+}
