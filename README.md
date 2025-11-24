@@ -2,26 +2,26 @@
 
 ## Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/nino-mau/pokemon-project.git
 cd pokemon-project
 ```
 
-2. Install dependencies (pnpm required, install pnpm with `corepack enable pnpm`):
+Install dependencies (pnpm required, install pnpm with `corepack enable pnpm`):
 
 ```bash
 pnpm install
 ```
 
-3. Start the containers
+Start the containers
 
 ```bash
 docker compose up -d
 ```
 
-4. Seed the database
+Seed the database
 
 ```bash
 pnpm seed
