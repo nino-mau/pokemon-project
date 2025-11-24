@@ -9,17 +9,25 @@ git clone https://github.com/nino-mau/pokemon-project.git
 cd pokemon-project
 ```
 
-2. Install dependencies:
+2. Install dependencies (pnpm required, install pnpm with `corepack enable pnpm`):
 
 ```bash
-npm install
+pnpm install
 ```
 
-4. Start the application and database containers and access the app at [http://localhost:3000](http://localhost:3000)
+3. Start the containers
 
 ```bash
 docker compose up -d
 ```
+
+4. Seed the database
+
+```bash
+pnpm seed
+```
+
+You can now access the API at [http://localhost:3000](http://localhost:3000)
 
 ## API Testing
 
@@ -30,7 +38,7 @@ Open the bruno folder with [bruno](https://www.usebruno.com/) (Postman equivalen
 Run unit tests:
 
 ```bash
-npm test
+pnpm test
 ```
 
 The tests include:
