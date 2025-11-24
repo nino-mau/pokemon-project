@@ -15,15 +15,19 @@ cd pokemon-project
 npm install
 ```
 
-4. Start the application and database containers and access the app at [localhost:3000]
+4. Start the application and database containers and access the app at [http://localhost:3000](http://localhost:3000)
 
 ```bash
 docker compose up -d
 ```
 
-## Testing
+## API Testing
 
-Run tests:
+Open the bruno folder with [bruno](https://www.usebruno.com/) (Postman equivalent) and test the routes.
+
+## Unit Testing
+
+Run unit tests:
 
 ```bash
 npm test
